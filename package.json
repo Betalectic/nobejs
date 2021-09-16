@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=development nodemon ./bin/www",
+    "serve": "LOAD_FROM_DOTENV=true nodemon app.js",
     "start": "node ./bin/www",
     "migrate": "sequelize db:migrate",
     "db:init": "sequelize init",
