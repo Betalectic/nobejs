@@ -6,9 +6,7 @@ if (process.env.LOAD_FROM_DOTENV === "true") {
 var debug = require("debug")("nobe:server");
 const express = require("express");
 var http = require("http");
-
-const notFound = require("./core/notFound");
-const errorHandler = require("./core/errorHandler");
+const { notFound, errorHandler } = require("./bootstrap.js");
 
 var port = process.env.PORT || 3000;
 
