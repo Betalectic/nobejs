@@ -1,7 +1,7 @@
-const notFound = require("./core/notFound");
+const notFoundHandler = require("./core/notFoundHandler");
 const errorHandler = require("./core/errorHandler");
 
 module.exports = {
-  notFound,
+  notFoundHandler,
   errorHandler,
 };

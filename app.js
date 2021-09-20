@@ -5,8 +5,9 @@ if (process.env.LOAD_FROM_DOTENV === "true") {
 
 var debug = require("debug")("nobe:server");
 const express = require("express");
+var router = express.Router();
 var http = require("http");
-const { notFound, errorHandler } = require("./bootstrap.js");
+const { notFoundHandler, errorHandler } = require("./bootstrap.js");
 
 var port = process.env.PORT || 3000;
 
@@ -14,7 +15,26 @@ const app = express();
 app.use(express.json());
 app.set("port", port);
 
-app.use(notFound);
+app.use(function (req, res, next) {
+  req.nobe = {};
+  next();
+});
+
+// Before Middlewares
+// app.use();
+// Endpoints
+
+require("./core/loadEndpoints")(app);
+
+// require("./src/endpoints.js")(app);
+
+// app.get("/", (req, res) => {
+//   return { status: "ok" };
+// });
+
+// After Middlewares
+
+app.use(notFoundHandler);
 app.use(errorHandler);
 
 var server = http.createServer(app);
@@ -26,10 +46,7 @@ function onError(error) {
   if (error.syscall !== "listen") {
     throw error;
   }
-
   var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
-
-  // handle specific listen errors with friendly messages
   switch (error.code) {
     case "EACCES":
       console.error(bind + " requires elevated privileges");
@@ -47,5 +64,6 @@ function onError(error) {
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+  console.log("I am listening...");
   debug("Listening on " + bind);
 }

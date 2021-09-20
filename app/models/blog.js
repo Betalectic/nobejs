@@ -1,6 +1,5 @@
 "use strict";
 const { Model } = require("sequelize");
-const Author = require("./index").Author;
 
 module.exports = (sequelize, DataTypes) => {
   class Blog extends Model {
