@@ -11,7 +11,7 @@ const passthru = (req) => {
   };
 };
 
-const validate = (req, res, next) => {
+const validate = (req) => {
   const constraints = {
     title: {
       presence: {
@@ -23,10 +23,10 @@ const validate = (req, res, next) => {
         message: "Blog Title should be unique",
         callback: async (payload) => {
           let count =
-            typeof payload.name === "string"
+            typeof payload.title === "string"
               ? await Blog.count({
                   where: {
-                    name: payload.name,
+                    title: payload.title,
                   },
                 })
               : -1;
@@ -36,7 +36,7 @@ const validate = (req, res, next) => {
     },
   };
 
-  return validatorBase(constraints, req.nobe.passthru, req, res, next);
+  return validatorBase(constraints, req.nobe.passthru);
 };
 
 const handler = async (req) => {

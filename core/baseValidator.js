@@ -20,7 +20,7 @@ validate.validators.custom_callback = function (
   });
 };
 
-module.exports = (constraints, payload, req, res, next) => {
+module.exports = (constraints, payload) => {
   return new Promise((resolve, reject) => {
     try {
       validate
@@ -30,7 +30,7 @@ module.exports = (constraints, payload, req, res, next) => {
         })
         .then(
           () => {
-            resolve(next());
+            resolve({});
           },
           (validateJsErrors) => {
             var response = {
@@ -48,8 +48,6 @@ module.exports = (constraints, payload, req, res, next) => {
             response["errors"] = errors;
 
             reject(response);
-
-            // return res.status(422).send(response);
           }
         );
     } catch (error) {
