@@ -1,4 +1,4 @@
-module.exports = (func, resultKey = "data") => {
+module.exports = (func) => {
   return async (req, res, next) => {
     try {
       let result = await func.apply(null, [req, res, next]);
