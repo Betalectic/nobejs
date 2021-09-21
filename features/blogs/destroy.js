@@ -1,4 +1,4 @@
-const Blog = require("../../database/models").Blog;
+const Blog = modelRequire("Blog");
 
 const handler = async (req) => {
   try {

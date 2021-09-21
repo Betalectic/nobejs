@@ -1,6 +1,7 @@
-const Blog = require("../../database/models").Blog;
+// const Blog = require("../../database/models").Blog;
+const Blog = modelRequire("Blog");
+const validator = nobeRequire("validator");
 const blogResourceResponse = require("../../app/responses/blogResource");
-const validatorBase = require("../../core/baseValidator");
 
 const passthru = (req) => {
   return {
@@ -36,7 +37,7 @@ const validate = (req) => {
     },
   };
 
-  return validatorBase(constraints, req.nobe.passthru);
+  return validator(constraints, req.nobe.passthru);
 };
 
 const handler = async (req) => {

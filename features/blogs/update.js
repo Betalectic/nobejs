@@ -1,6 +1,6 @@
-const Blog = require("../../database/models").Blog;
+const Blog = modelRequire("Blog");
 const blogResourceResponse = require("../../app/responses/blogResource");
-const validatorBase = require("../../core/baseValidator");
+const validator = nobeRequire("validator");
 const { Op } = require("sequelize");
 
 const passthru = (req) => {
@@ -40,7 +40,7 @@ const validate = (req) => {
     },
   };
 
-  return validatorBase(constraints, req.nobe.passthru);
+  return validator(constraints, req.nobe.passthru);
 };
 
 const handler = async (req) => {

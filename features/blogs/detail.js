@@ -1,5 +1,5 @@
-const Blog = require("../../database/models").Blog;
-const Author = require("../../database/models").Author;
+const Blog = modelRequire("Blog");
+const Author = modelRequire("Author");
 const blogResourceResponse = require("../../app/responses/blogResource");
 
 const handler = async (req) => {

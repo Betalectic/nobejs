@@ -24,7 +24,7 @@ app.use(function (req, res, next) {
 // app.use();
 // Endpoints
 
-require("./core/loadEndpoints")(app);
+nobeRequire("loadEndpoints")(app);
 
 // require("./src/endpoints.js")(app);
 
