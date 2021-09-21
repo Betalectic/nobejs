@@ -1,5 +1,5 @@
-const Blog = require("../../app/models").Blog;
-const Author = require("../../app/models").Author;
+const Blog = require("../../database/models").Blog;
+const Author = require("../../database/models").Author;
 const blogCollectionResponse = require("../../app/responses/blogCollection");
 
 const blogList = async () => {

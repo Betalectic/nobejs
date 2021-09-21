@@ -1,4 +1,4 @@
-const Blog = require("../../app/models").Blog;
+const Blog = require("../../database/models").Blog;
 const blogResourceResponse = require("../../app/responses/blogResource");
 const validatorBase = require("../../core/baseValidator");
 

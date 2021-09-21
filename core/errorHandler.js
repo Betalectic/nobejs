@@ -1,5 +1,5 @@
 module.exports = (err, req, res, next) => {
-  // console.log("global err handler ----->", err);
+  console.log("global err handler ----->", err);
 
   if (err.statusCode) {
     let statusCode = err.statusCode;

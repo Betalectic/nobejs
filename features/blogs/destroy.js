@@ -1,14 +1,27 @@
-const passthru = () => {};
+const Blog = require("../../database/models").Blog;
 
-const validate = () => {};
+const handler = async (req) => {
+  try {
+    let blog = await Blog.findByPk(req.params.id);
 
-const response = () => {
-  return { status: "ok" };
+    if (!blog) {
+      throw {
+        message: "Not Found..",
+        statusCode: 404,
+      };
+    }
+
+    await blog.destroy();
+
+    return {
+      message: "Successfully deleted",
+    };
+  } catch (error) {
+    throw error;
+  }
 };
 
-const handler = () => {};
-
-const executeSequence = [passthru, validate, handler, response];
+const executeSequence = [handler];
 
 module.exports = () => {
   return executeSequence;

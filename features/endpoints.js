@@ -8,8 +8,8 @@ module.exports = () => {
         ["get", "/", "index"],
         ["post", "/", "create"],
         ["get", "/:id", "detail"],
-        ["put", "/:id", "/update"],
-        ["delete", "/:id", "/destroy"],
+        ["put", "/:id", "update"],
+        ["delete", "/:id", "destroy"],
       ],
     },
   ];
