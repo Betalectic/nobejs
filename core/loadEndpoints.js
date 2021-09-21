@@ -1,4 +1,4 @@
-const endpoints = require("../src/endpoints");
+const endpoints = require("../features/endpoints");
 const executeForResult = require("./executeForResult");
 const executeForResponse = require("./executeForResponse");
 
@@ -7,7 +7,7 @@ module.exports = function (app) {
 
   apis.forEach((api) => {
     api.endpoints.forEach((endpoint, i) => {
-      let folderPaths = ["../src"];
+      let folderPaths = ["../features"];
       folderPaths.push(api.folder);
       folderPaths.push(endpoint[2]);
       folderPaths = folderPaths.map((p) => {

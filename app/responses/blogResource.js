@@ -1,5 +1,5 @@
 const blogSerializer = require("./blogSerializer");
 
 module.exports = (req, res, next) => {
-  return blogSerializer(req["data"]);
+  return blogSerializer(req["nobe"]["handler"]);
 };
