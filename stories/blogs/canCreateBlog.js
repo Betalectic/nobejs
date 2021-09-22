@@ -1,5 +1,10 @@
 const validator = nobeRequire("validator");
 const Blog = modelRequire("Blog");
+// const { parseDate } = require("../../dates.js");
+
+const story = {
+  description: "",
+};
 
 const constraints = {
   title: {
@@ -25,7 +30,13 @@ const constraints = {
   },
 };
 
-const getInput = () => {};
+const before = (req) => {};
+
+const after = (req) => {};
+
+const getInput = (req) => {
+  return req.body;
+};
 
 // Who can do the action of this story?
 const validateInput = async (payload) => {
@@ -37,12 +48,24 @@ const validateInput = async (payload) => {
 };
 
 const handle = (payload) => {
+  // checkIfInvestorExists();
+  // checkIfInvestorIsOnboarded();
+  // placeAnOrder();
+  // fireAnEvent();
+  // Request
+  // Response
   console.log("handle called", payload);
 };
 
 const giveOutput = () => {};
 
-const executeSequence = [getInput, validateInput, handle, giveOutput];
+const executeSequence = [
+  getInput,
+  validateInput,
+  handle,
+  parseDate,
+  giveOutput,
+];
 
 module.exports = () => {
   return executeSequence;

@@ -5,7 +5,7 @@ module.exports = () => {
       prefix: "blogs",
       folder: "/blogs",
       endpoints: [
-        ["get", "/", "index"],
+        ["get", "/", "canCreateBlog"],
         ["post", "/", "create"],
         ["get", "/:id", "detail"],
         ["put", "/:id", "update"],

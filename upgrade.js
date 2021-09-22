@@ -1,8 +1,8 @@
 const https = require("https");
 const fs = require("fs");
-var yauzl = require("yauzl");
-var request = require("request");
-const downloadRelease = require("@terascope/fetch-github-release");
+// var yauzl = require("yauzl");
+// var request = require("request");
+// const downloadRelease = require("@terascope/fetch-github-release");
 
 const options = {
   hostname: "api.github.com",

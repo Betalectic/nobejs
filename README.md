@@ -25,4 +25,19 @@ psql -h host.docker.internal -p 5433 -U postgres
 
 docker exec -it 86ba3da2b288 sh
 
-# -------
+# ---------- 
+
+
+- Requirement
+- Database Architecture
+- Request and Response (JSON Formats)
+- Table Migration
+- Writing some models, queries, functions
+- API Endpoint
+- Cron jobs
+- Command Line (php artisan, node filename.js)
+- Logs (Staging, Production)
+- Deploy ()
+
+Laravel - PHP + Eloquent
+NodeJS - Javacript + Sequelize

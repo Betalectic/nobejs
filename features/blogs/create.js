@@ -4,6 +4,7 @@ const validator = nobeRequire("validator");
 const blogResourceResponse = require("../../app/responses/blogResource");
 
 const passthru = (req) => {
+  // JSON Schema v4
   return {
     author_id: req.body.author_id,
     title: req.body.title,
@@ -40,7 +41,7 @@ const validate = (req) => {
   return validator(constraints, req.nobe.passthru);
 };
 
-const handler = async (req) => {
+const handler = async (req, res, next) => {
   try {
     let blog = await Blog.create(req.nobe.passthru);
     return blog;

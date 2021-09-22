@@ -1,6 +1,8 @@
 module.exports = (err, req, res, next) => {
   console.log("global err handler ----->", err);
 
+  // Sentry configuration
+
   if (err.statusCode) {
     let statusCode = err.statusCode;
     delete err.statusCode;

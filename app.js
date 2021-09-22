@@ -21,12 +21,6 @@ app.use(function (req, res, next) {
 
 nobeRequire("loadEndpoints")(app);
 
-// require("./src/endpoints.js")(app);
-
-// app.get("/", (req, res) => {
-//   return { status: "ok" };
-// });
-
 // After Middlewares
 
 app.use(notFoundHandler);
