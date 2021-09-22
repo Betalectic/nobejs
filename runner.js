@@ -11,14 +11,26 @@ program
 
 const { Pool } = require("postgresql-client");
 
-const db = new Pool({
-  host: "postgres://postgres:secret@localhost:5432/nobejs",
-  pool: {
-    min: 1,
-    max: 10,
-    idleTimeoutMillis: 5000,
+const knex = require("knex")({
+  client: "pg",
+  connection: {
+    host: "127.0.0.1",
+    port: 5432,
+    user: "postgres",
+    password: "secret",
+    database: "nobejs",
+    application_name: "nobe-runner",
   },
 });
+
+// const db = new Pool({
+//   host: "postgres://postgres:secret@localhost:5432/nobejs",
+//   pool: {
+//     min: 1,
+//     max: 10,
+//     idleTimeoutMillis: 5000,
+//   },
+// });
 
 (async () => {
   program.parse(process.argv);
@@ -37,15 +49,19 @@ const db = new Pool({
   });
 
   try {
+    let blogs = await knex.select().table("blogs");
+    let authors = await knex.select().table("authors");
+    console.log(blogs, authors);
     // let blogs = await Blog.findAll();
     // await sequelize.query("SELECT * FROM blogs");
     // await functions[validateInputIndex](functionInput);
-
-    const result = await db.query("select * from blogs");
-    console.log("function", result.rows);
+    // const result = await db.query("select * from blogs");
+    // console.log("function", result.rows);
     // db.close();
     //   functions[handleIndex](functionInput);
   } catch (error) {
     console.log(error);
+  } finally {
+    // knex.destroy();
   }
 })();
