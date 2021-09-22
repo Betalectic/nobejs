@@ -20,7 +20,7 @@ validate.validators.custom_callback = function (
   });
 };
 
-module.exports = (constraints, payload) => {
+module.exports = (payload, constraints) => {
   return new Promise((resolve, reject) => {
     try {
       validate

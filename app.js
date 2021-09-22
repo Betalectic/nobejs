@@ -1,8 +1,3 @@
-if (process.env.LOAD_FROM_DOTENV === "true") {
-  var dotenv = require("dotenv");
-  dotenv.config({ path: ".env" });
-}
-
 var debug = require("debug")("nobe:server");
 const express = require("express");
 var router = express.Router();

@@ -18,8 +18,6 @@ const blogList = async () => {
   }
 };
 
-const executeSequence = [blogList, blogCollectionResponse];
-
 module.exports = () => {
-  return executeSequence;
+  return [blogList, blogCollectionResponse];
 };
