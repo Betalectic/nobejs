@@ -13,6 +13,7 @@ const { Pool } = require("postgresql-client");
 
 const knex = require("knex")({
   client: "pg",
+  debug: true,
   connection: {
     host: "127.0.0.1",
     port: 5432,
@@ -62,6 +63,6 @@ const knex = require("knex")({
   } catch (error) {
     console.log(error);
   } finally {
-    // knex.destroy();
+    knex.destroy();
   }
 })();
