@@ -1,13 +1,9 @@
-/**
- * Headers
- * Form Data
- * Cookies
- * Params
- * Body
- */
-
 const getInputFromHttpRequest = () => {};
 const validateInput = () => {};
+
+module.exports = () => {
+  return [getInputFromHttpRequest, validateInput];
+};
 
 // API:
 
