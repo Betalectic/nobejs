@@ -2,7 +2,11 @@ var debug = require("debug")("nobe:server");
 const express = require("express");
 var router = express.Router();
 var http = require("http");
-const { notFoundHandler, errorHandler } = require("./bootstrap.js");
+const {
+  notFoundHandler,
+  errorHandler,
+  authMiddleware,
+} = require("./bootstrap.js");
 
 var port = process.env.PORT || 3000;
 
@@ -18,6 +22,7 @@ app.use(function (req, res, next) {
 // Before Middlewares
 // app.use();
 // Endpoints
+app.use(authMiddleware);
 
 nobeRequire("loadEndpoints")(app);
 

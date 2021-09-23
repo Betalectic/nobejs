@@ -9,6 +9,16 @@ const all = async () => {
   }
 };
 
+const createBlog = async (payload) => {
+  try {
+    let blog = await knex("blogs").insert(payload);
+    return blog;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   all,
+  createBlog,
 };

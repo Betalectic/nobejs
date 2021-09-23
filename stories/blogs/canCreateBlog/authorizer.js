@@ -1,5 +1,7 @@
-const resolveUserFromHttpRequest = () => {};
-const authorizeUser = () => {
+const resolveUserFromHttpRequest = ({ req }) => {
+  return req.user;
+};
+const authorizeUser = (user) => {
   return true;
 };
 

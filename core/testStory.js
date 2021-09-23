@@ -44,53 +44,28 @@ const checkIfThereAreErrorsBeforeRunning = (handlerFunctions) => {
   return collectErrors;
 };
 
-module.exports = async (story, req, res, next) => {
+module.exports = async (
+  storyName = "blogs/canCreateBlog",
+  inputPayload,
+  user = {},
+  source = "cmd"
+) => {
   try {
-    const storyContext = requireStory(story);
+    const storyContext = requireStory(storyName);
 
     const handlerFunctions = Object.keys(storyContext);
 
     let collectErrors = checkIfThereAreErrorsBeforeRunning(handlerFunctions);
 
     if (!collectErrors.length) {
-      const executionContext = {
-        req,
-        res,
-        next,
-        requestBody: req.body,
-        requestParams: req.params,
-        requestQuery: req.query,
-      };
-      const user = await storyContext.resolveUserFromHttpRequest(
-        executionContext
-      );
-      const isUserAuthorized = await storyContext.authorizeUser(
-        user,
-        executionContext
-      );
+      const executionContext = {};
+      let isUserAuthorized = await storyContext.authorizeUser(user);
 
       if (isUserAuthorized) {
-        const inputPayload = await storyContext.getInputFromHttpRequest(
-          executionContext
-        );
-
-        let inputIsValid = await storyContext.validateInput(
-          inputPayload,
-          executionContext
-        );
+        let inputIsValid = await storyContext.validateInput(inputPayload);
 
         if (inputIsValid) {
-          const handlerResult = await storyContext.run(
-            inputPayload,
-            executionContext
-          );
-
-          const finalResult = await storyContext.generateOutput(
-            handlerResult,
-            executionContext
-          );
-
-          return finalResult;
+          return await storyContext.run();
         }
       }
     } else {

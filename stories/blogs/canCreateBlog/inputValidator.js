@@ -1,6 +1,9 @@
 const validator = nobeRequire("validator");
+const pickKeysFromObject = requireUtil("pickKeysFromObject");
 
-const getInputFromHttpRequest = () => {};
+const getInputFromHttpRequest = ({ requestBody }) => {
+  return pickKeysFromObject(requestBody, ["title"]);
+};
 
 const validateInput = async (payload) => {
   const constraints = {

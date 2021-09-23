@@ -11,12 +11,7 @@ var unless = function (path, middleware) {
   };
 };
 
-const exclude = [
-  "PUT /blogs/:id",
-  "GET /blogs/:id",
-  "GET /blogs",
-  "POST /blogs",
-];
+const exclude = [];
 
 module.exports = (req, res, next) => {
   let needsAuth = true;
