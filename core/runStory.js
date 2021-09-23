@@ -1,8 +1,4 @@
-const checkIfThereAreErrorsBeforeRunning = (
-  handlerFunctions,
-  authorizerFunctions,
-  inputValidatorFunctions
-) => {
+const checkIfThereAreErrorsBeforeRunning = (handlerFunctions) => {
   let collectErrors = [];
 
   if (!handlerFunctions.includes("run")) {
@@ -13,7 +9,7 @@ const checkIfThereAreErrorsBeforeRunning = (
     });
   }
 
-  if (!authorizerFunctions.includes("authorizeUser")) {
+  if (!handlerFunctions.includes("authorizeUser")) {
     collectErrors.push({
       issue: "MissingFunction",
       file: "authorizer.js",
@@ -21,7 +17,7 @@ const checkIfThereAreErrorsBeforeRunning = (
     });
   }
 
-  if (!authorizerFunctions.includes("resolveUserFromHttpRequest")) {
+  if (!handlerFunctions.includes("resolveUserFromHttpRequest")) {
     collectErrors.push({
       issue: "MissingFunction",
       file: "authorizer.js",
@@ -29,7 +25,7 @@ const checkIfThereAreErrorsBeforeRunning = (
     });
   }
 
-  if (!inputValidatorFunctions.includes("getInputFromHttpRequest")) {
+  if (!handlerFunctions.includes("getInputFromHttpRequest")) {
     collectErrors.push({
       issue: "MissingFunction",
       file: "inputValidator.js",
@@ -37,7 +33,7 @@ const checkIfThereAreErrorsBeforeRunning = (
     });
   }
 
-  if (!inputValidatorFunctions.includes("validateInput")) {
+  if (!handlerFunctions.includes("validateInput")) {
     collectErrors.push({
       issue: "MissingFunction",
       file: "inputValidator.js",
@@ -55,33 +51,21 @@ module.exports = async (
   source = "cmd"
 ) => {
   try {
-    // Check if the story has handler function
-    const handlerPath = `../stories/${storyName}/handler.js`;
-    const authorizerPath = `../stories/${storyName}/authorizer.js`;
-    const inputValidatorPath = `../stories/${storyName}/inputValidator.js`;
-    const handlerFunctions = Object.keys(require(handlerPath)());
-    const authorizerFunctions = Object.keys(require(authorizerPath)());
-    const inputValidatorFunctions = Object.keys(require(inputValidatorPath)());
+    const storyContext = requireStory(storyName);
 
-    let collectErrors = checkIfThereAreErrorsBeforeRunning(
-      handlerFunctions,
-      authorizerFunctions,
-      inputValidatorFunctions
-    );
+    const handlerFunctions = Object.keys(storyContext);
+
+    let collectErrors = checkIfThereAreErrorsBeforeRunning(handlerFunctions);
 
     if (!collectErrors.length) {
       const executionContext = {};
-      let isUserAuthorized = await require(authorizerPath)()["authorizeUser"](
-        user
-      );
+      let isUserAuthorized = await storyContext.authorizeUser(user);
 
       if (isUserAuthorized) {
-        let inputIsValid = await require(inputValidatorPath)()["validateInput"](
-          inputPayload
-        );
+        let inputIsValid = await storyContext.validateInput(inputPayload);
 
         if (inputIsValid) {
-          return await require(handlerPath)()["run"]();
+          return await storyContext.run();
         }
       }
     } else {

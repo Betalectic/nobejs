@@ -15,9 +15,7 @@ const validateInput = async (payload) => {
   return validator(payload, constraints);
 };
 
-module.exports = () => {
-  return {
-    getInputFromHttpRequest: getInputFromHttpRequest,
-    validateInput: validateInput,
-  };
+module.exports = {
+  getInputFromHttpRequest,
+  validateInput,
 };
