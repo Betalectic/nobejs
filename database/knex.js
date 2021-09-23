@@ -1,6 +1,6 @@
 module.exports = require("knex")({
   client: "pg",
-  debug: true,
+  debug: false,
   connection: {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT || 5432,
@@ -8,5 +8,6 @@ module.exports = require("knex")({
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     application_name: process.env.APP_NAME || "nobe-runner",
+    timezone: "utc",
   },
 });

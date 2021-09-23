@@ -6,8 +6,6 @@ const { generateOutput } = require("./sendResponse");
 const execute = async (payload) => {
   console.log("payload", payload);
   let result = await Blog.createBlog(payload);
-  console.log(result);
-
   return result;
 };
 

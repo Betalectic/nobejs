@@ -11,8 +11,9 @@ const all = async () => {
 
 const createBlog = async (payload) => {
   try {
-    let blog = await knex("blogs").insert(payload);
-    return blog;
+    payload["created_at"] = new Date().toISOString();
+    let blog = await knex("blogs").insert(payload).returning("*");
+    return blog[0];
   } catch (error) {
     throw error;
   }
