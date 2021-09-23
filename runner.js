@@ -63,6 +63,6 @@ const knex = require("knex")({
   } catch (error) {
     console.log(error);
   } finally {
-    knex.destroy();
+    // knex.destroy();
   }
 })();

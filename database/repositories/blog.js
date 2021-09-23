@@ -6,8 +6,6 @@ const all = async () => {
     return blogs;
   } catch (error) {
     throw error;
-  } finally {
-    knex.destroy();
   }
 };
 
