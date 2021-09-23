@@ -9,7 +9,7 @@ const db = {};
 let sequelize;
 
 sequelize = new Sequelize(
-  process.env.DB_NAME,
+  process.env.DB_PORT,
   process.env.DB_USERNAME,
   process.env.DB_PASSWORD,
   {
