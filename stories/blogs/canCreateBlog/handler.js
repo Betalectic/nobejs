@@ -1,5 +1,9 @@
-const run = () => {};
+const run = () => {
+  console.log("run the function");
+};
 
 module.exports = () => {
-  return [run];
+  return {
+    run: run,
+  };
 };

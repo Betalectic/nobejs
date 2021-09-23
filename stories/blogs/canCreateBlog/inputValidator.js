@@ -1,14 +1,13 @@
 const getInputFromHttpRequest = () => {};
-const validateInput = () => {};
 
-module.exports = () => {
-  return [getInputFromHttpRequest, validateInput];
+const validateInput = () => {
+  console.log("See if input is valid");
+  return true;
 };
 
-// API:
-
-// authorize -> getInputFromHttpRequest -> validateInput -> handler -> sendResponse
-
-// CMD:
-
-// authorize -> validateInput -> handler
+module.exports = () => {
+  return {
+    getInputFromHttpRequest: getInputFromHttpRequest,
+    validateInput: validateInput,
+  };
+};
