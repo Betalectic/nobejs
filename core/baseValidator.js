@@ -44,6 +44,7 @@ module.exports = (payload, constraints) => {
               return d;
             });
 
+            response["errorCode"] = "InputNotValid";
             response["statusCode"] = 422;
             response["errors"] = errors;
 

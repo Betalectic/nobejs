@@ -1,8 +1,18 @@
+const validator = nobeRequire("validator");
+
 const getInputFromHttpRequest = () => {};
 
-const validateInput = () => {
-  console.log("See if input is valid");
-  return true;
+const validateInput = async (payload) => {
+  const constraints = {
+    title: {
+      presence: {
+        allowEmpty: false,
+        message: "^Please enter title",
+      },
+    },
+  };
+
+  return validator(payload, constraints);
 };
 
 module.exports = () => {

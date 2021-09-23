@@ -1,6 +1,5 @@
 const resolveUserFromHttpRequest = () => {};
 const authorizeUser = () => {
-  console.log("See if we can authorize user");
   return true;
 };
 

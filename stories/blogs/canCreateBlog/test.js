@@ -1,18 +1,14 @@
+require("../../../bootstrap.js");
 const runStory = nobeRequire("runStory");
 
-test("adds 1 + 2 to equal 3", () => {
-  let output = runStory(
-    canCreateBlog(
-      {
-        title: "Something",
-      },
-      user1
-    )
+test("can create a blog", async () => {
+  let output = await runStory("blogs/canCreateBlog", {
+    name: "Something",
+  });
+
+  expect(output).toEqual(
+    expect.objectContaining({
+      errorCode: expect.stringMatching("InputNotValid"),
+    })
   );
-
-  expect(output).toBe(3);
 });
-
-// 1. User will write - yarn test storyName.js
-// 2. The execution order is known by us
-// 3. So, we execute, get the result, compare with expected output
