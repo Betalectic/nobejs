@@ -4,5 +4,6 @@ require("./bootstrap.js");
 module.exports = async () => {
   return {
     verbose: true,
+    setupFiles: ["./bootstrap.js", "dotenv/config"],
   };
 };

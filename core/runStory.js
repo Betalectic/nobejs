@@ -51,6 +51,7 @@ const checkIfThereAreErrorsBeforeRunning = (
 module.exports = async (
   storyName = "blogs/canCreateBlog",
   inputPayload,
+  user = {},
   source = "cmd"
 ) => {
   return new Promise(async function (resolve, reject) {
@@ -73,21 +74,17 @@ module.exports = async (
 
       if (!collectErrors.length) {
         const executionContext = {};
-        // call authorize
-        let isUserAuthorized = require(authorizerPath)()["authorizeUser"]();
+        let isUserAuthorized = require(authorizerPath)()["authorizeUser"](user);
 
         if (isUserAuthorized) {
           let inputIsValid = await require(inputValidatorPath)()[
             "validateInput"
-          ]();
+          ](inputPayload);
 
           if (inputIsValid) {
-            require(handlerPath)()["run"]();
+            resolve(require(handlerPath)()["run"]());
           }
         }
-
-        // call validateInput
-        // call handler
       } else {
         throw {
           errorCode: "MissingFunctionsOrFiles",
@@ -97,15 +94,6 @@ module.exports = async (
       }
     } catch (error) {
       resolve(error);
-      // if (error.errorCode === "MissingFunctionsOrFiles") {
-      //   error.collectErrors.forEach((e) => {
-      //     console.log(`${e.issue}: ${e.missing} in ${e.file}`);
-      //   });
-      // } else if (error.errorCode === "InputNotValid") {
-      //   console.log(error);
-      // } else {
-      //   console.log("Encountered an error with message:", error.message);
-      // }
     }
   });
 };

@@ -1,5 +1,7 @@
 const run = () => {
-  console.log("run the function");
+  return {
+    message: "success",
+  };
 };
 
 module.exports = () => {
