@@ -1,10 +1,9 @@
 require("./bootstrap.js");
 
-// Or async function
 module.exports = async () => {
   return {
     verbose: true,
-    setupFiles: ["./bootstrap.js", "dotenv/config"],
+    setupFiles: ["./bootstrap.js", "./jest-setup.js"],
     setupFilesAfterEnv: ["./jest-after.js"],
   };
 };

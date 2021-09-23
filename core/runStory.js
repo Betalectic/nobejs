@@ -54,48 +54,46 @@ module.exports = async (
   user = {},
   source = "cmd"
 ) => {
-  return new Promise(async function (resolve, reject) {
-    try {
-      // Check if the story has handler function
-      const handlerPath = `../stories/${storyName}/handler.js`;
-      const authorizerPath = `../stories/${storyName}/authorizer.js`;
-      const inputValidatorPath = `../stories/${storyName}/inputValidator.js`;
-      const handlerFunctions = Object.keys(require(handlerPath)());
-      const authorizerFunctions = Object.keys(require(authorizerPath)());
-      const inputValidatorFunctions = Object.keys(
-        require(inputValidatorPath)()
+  try {
+    // Check if the story has handler function
+    const handlerPath = `../stories/${storyName}/handler.js`;
+    const authorizerPath = `../stories/${storyName}/authorizer.js`;
+    const inputValidatorPath = `../stories/${storyName}/inputValidator.js`;
+    const handlerFunctions = Object.keys(require(handlerPath)());
+    const authorizerFunctions = Object.keys(require(authorizerPath)());
+    const inputValidatorFunctions = Object.keys(require(inputValidatorPath)());
+
+    let collectErrors = checkIfThereAreErrorsBeforeRunning(
+      handlerFunctions,
+      authorizerFunctions,
+      inputValidatorFunctions
+    );
+
+    if (!collectErrors.length) {
+      const executionContext = {};
+      let isUserAuthorized = await require(authorizerPath)()["authorizeUser"](
+        user
       );
 
-      let collectErrors = checkIfThereAreErrorsBeforeRunning(
-        handlerFunctions,
-        authorizerFunctions,
-        inputValidatorFunctions
-      );
+      if (isUserAuthorized) {
+        let inputIsValid = await require(inputValidatorPath)()["validateInput"](
+          inputPayload
+        );
 
-      if (!collectErrors.length) {
-        const executionContext = {};
-        let isUserAuthorized = require(authorizerPath)()["authorizeUser"](user);
-
-        if (isUserAuthorized) {
-          let inputIsValid = await require(inputValidatorPath)()[
-            "validateInput"
-          ](inputPayload);
-
-          if (inputIsValid) {
-            resolve(require(handlerPath)()["run"]());
-          }
+        if (inputIsValid) {
+          return await require(handlerPath)()["run"]();
         }
-      } else {
-        throw {
-          errorCode: "MissingFunctionsOrFiles",
-          message: "Missing Functions or Files",
-          collectErrors,
-        };
       }
-    } catch (error) {
-      resolve(error);
+    } else {
+      throw {
+        errorCode: "MissingFunctionsOrFiles",
+        message: "Missing Functions or Files",
+        collectErrors,
+      };
     }
-  });
+  } catch (error) {
+    return error;
+  }
 };
 
 // API:
